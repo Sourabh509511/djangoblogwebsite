@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+{% load static %}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{% static 'home/base/css/reset.css' %}"> <!-- CSS reset -->
+	<link rel="stylesheet" href="{% static 'home/base/css/style.css' %}"> <!-- Resource style -->
+	<script src="{% static 'home/base/js/modernizr.js' %}"></script> <!-- Modernizr -->
+
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+	<title>{% block title %}
+  {% endblock title %}</title>
+
+<style>
+.cd-primary-nav a, .cd-primary-nav ul a {
+	border-bottom: 1px solid ;
+}
+
+.btn-group, .btn-group-vertical {
+		margin-top:20px;
+}
+.btn-secondary {
+    color: #6c757d;
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
+.cd-primary-nav a, .cd-primary-nav ul a {
+	    color: #545b62;
+}
+</style>
+  {% block css %}
+  {% endblock css %}
+</head>
+<body>
+	<header class="cd-main-header">
+		<a class="cd-logo" href="/">HOME</a>
+
+		<ul class="cd-header-buttons">
+			<li><a class="cd-search-trigger" href="#cd-search"><h4>Search</h4><span></span></a></li>
+			<li><a class="cd-nav-trigger" href="#cd-primary-nav">Menu<span></span></a></li>
+</div>
+	</header>
+
+	 <main class="cd-main-content" id="main">
+		<!-- your content here -->
+		{% for message in messages %}
+			<div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-0" role="alert">
+			<h1><strong>Message:</strong><h1><h2>{{message}}</h2>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+		{% endfor %}
+			{% block body %}
+			{% endblock body %}
+		<div class="cd-overlay"></div>
+	</main>
+
+	<nav class="cd-nav">
+		<ul id="cd-primary-nav" class="cd-primary-nav is-fixed">
+
+				<li><a href="{% url 'contact' %}">Contact Us</a></li>
+				<li><a href="{% url 'about' %}">About Us</a></li>
+				<li><a href="/blogs">Blogs</a></li>
+				<li><!-- Example split danger button -->
+				<div class="btn-group">
+					{% if user.is_authenticated %}
+						<button type="button" class="btn btn-secondary">{{request.user}}</button>
+						<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="sr-only"></span>
+						</button>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="/logout">Logout</a>
+						</div>
+					{% endif %}
+				</div>
+		</ul> <!-- primary-nav -->
+	</nav> <!-- cd-nav -->
+
+	<div id="cd-search" class="cd-search">
+		<form action="/home/search" method="get">
+			<input type="search" name="search" placeholder="Search...">
+		</form>
+	</div>
+<script src="{%static 'home/base/js/jquery-2.1.1.js' %}"></script>
+<script src="{%static 'home/base/js/jquery.mobile.custom.min.js' %}"></script>
+<script src="{% static 'home/base/js/main.js' %}"></script> <!-- Resource jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% load static %}
+{% load humanize %}
+ {% endblock title %}
+
+{% block css %}
+         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="{% static 'blogger/index/css/style.css ' %}" rel="stylesheet" type="text/css"  media="all" />
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link href='//fonts.googleapis.com/css?family=Carrois+Gothic+SC' rel='stylesheet' type='text/css'>
+		<style>
+		</style>
+{% endblock css %}
+{% block body %}
+		<!-- Start-wrap -->
+			<div class="clear"> </div>
+			<!-- content-gallery-->
+			</div>
+			<div class="wrap">
+				<div class="about">
+					<div class="services-sidebar">
+					<h4>Categories</h4>
+            <ul>
+                <li><img src="{% static 'blogger/index/images/pointer.png' %}" title="pointer" /><a href="#">National</a></li>
+                <li><img src="{% static 'blogger/index/images/pointer.png' %}" title="pointer" /><a href="#">International</a></li>
+                <li><img src="{% static 'blogger/index/images/pointer.png' %}" title="pointer" /><a href="#">Religion</a></li>
+                <li><img src="{% static 'blogger/index/images/pointer.png' %}" title="pointer" /><a href="#">Politics</a></li>
+                <li><img src="{% static 'blogger/index/images/pointer.png' %}" title="pointer" /><a href="#">Covid-19</a></li>
+                <li><img src="{% static 'blogger/index/images/pointer.png' %}" title="pointer" /><a href="#">Health</a></li>
+                <li><img src="{% static 'blogger/index/images/pointer.png' %}" title="pointer" /><a href="#">Education</a></li>
+                <li><img src="{% static 'blogger/index/images/pointer.png' %}" title="pointer" /><a href="#">Science & Tech.</a></li>
+                <li><img src="{% static 'blogger/index/images/pointer.png' %}" title="pointer" /><a href="#">Space</a></li>
+            </ul><br>
+            <h4>Archives</h4>
+            <ul>
+                <li><img src="{% static 'blogger/index/images/pointer.png' %}" title="pointer" /><a href="#">Jan, 2020</a></li>
+                <li><img src="{% static 'blogger/index/images/pointer.png' %}" title="pointer" /><a href="#">Feb, 2020</a></li>
+                <li><img src="{% static 'blogger/index/images/pointer.png' %}" title="pointer" /><a href="#">March, 2020</a></li>
+                <li><img src="{% static 'blogger/index/images/pointer.png' %}" title="pointer" /><a href="#">April, 2020</a></li>
+            </ul>
+				</div>
+					<div class="bloder-content">
+					<div class="blog-box1">
+							<ul>
+								<li>By:- <a href="#">{{fullpost.Author_name}}</a></li>
+								<li><a href="#">{{fullpost.Blog_time}}</a></li>
+							</ul>
+						<div class="blog-box-image">
+							<img src="/media/{{fullpost.Blog_image}}" title="preview" />
+						</div>
+						<div class="blog-box-content">
+							<h5><a href="#">{{fullpost.Blog_title}}</a></h5>
+							<p>{{fullpost.Blog_content}}</p>
+						</div>
+						<div class="container">
+						<strong><h1>Comments({{comments.count}})</h1></strong>
+						{% if user.is_authenticated %}
+						<form action="/blogs/comment" method="post">
+						{% csrf_token %}
+							<div class="form-group container">
+								<label for="exampleInputEmail1"></label>
+								<input type="text" class="form-control" name="comment" aria-describedby="emailHelp">
+								<input type="hidden" class="form-control" name="commentid" value="">
+								<input type="hidden" class="form-control" name="postid" value={{fullpost.Bid}}>
+							</div>
+							<button type="submit" class="btn btn-primary">Comment</button>
+						</form>
+						{% else %}
+						<div class="btn-danger ml-5">Please login to comment</div>
+						{% endif %}
+						{% for comment in comments %}
+						<div class="media container my-3">
+							<img src="{% static 'blogger/blogger/no.jpg' %}" class="rounded mx-auto d-block p-2" alt="user" width="55px" height="55px">
+							<div class="media-body">
+								<div class="mt-0 ml-2"><h3><b>{{comment.user.username}}<h3></b><span class="badge badge-secondary"> at {{comment.timestamp|naturaltime}}</span></div>
+									<p class="ml-2">{{comment.c_text}}</p>
+									{% comment %}<div class="container">
+									{% if user.is_authenticated %}
+										<button class="btn btn-primary " type="button" data-toggle="collapse" data-target="#replybutton{{comment.c_id}}" aria-expanded="false" aria-controls="collapseExample">
+											Reply
+										</button>
+										<div class="media mt-3 collapse" id="replybutton{{comment.c_id}}">
+											<div class="card card-body">
+												<form action="/blogs/comment" method="post">
+													{% csrf_token %}
+													<div class="form-group container">
+														<label for="exampleInputEmail1"></label>
+														<input type="text" class="form-control" name="comment" aria-describedby="emailHelp">
+														<input type="hidden" class="form-control" name="commentid" value={{comment.c_id}}>
+														<input type="hidden" class="form-control" name="postid" value={{fullpost.Bid}}>
+													</div>
+													<button type="submit" class="btn btn-primary">Reply</button>
+												</form>
+													{% for reply in allreply.keys %}
+													{% comment %} {% for item,values in reply %}{% endfor %} 
+													{% if reply == comment.c_id %}
+														{% for values in allreply.values %}
+														<a class="mr-3" href="#">
+														<img src="..." class="mr-3" alt="user" width="55px" height="55px">
+														</a>
+														<div class="media-body">
+														<h5 class="mt-0">{{values.user}}</h5>
+															{{values.c_text}}
+															{% comment %} {{value}} 
+														</div>
+														{% endfor %}
+													{% endif %}
+												{% endfor %}
+												{% else %}
+														<button type="submit" class="btn btn-primary" disabled>Login to Reply</button>
+												{% endif %} 
+											</div>{% endcomment %}
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+					<div class="clear"> </div>
+			</div>
+		</div>
+	</div>
+		<div class="clear"> </div>
+			<!-- End-content-gallery-->
+			<!-- DC Pagination:C9 Start -->
+			<div class="wrap">
+	    		<div class="clear"> </div>
+	<!-- DC Pagination:C9 End -->
+		</div>
+		<div class="clear"> </div>
+		<div class="footer">
+				<div class="wrap">
+				<h3>Follow us on...</h3>
+			<div class="footerlinks">
+				<div class="share">
+		                	<li><a href="#" target="_blank" title="Facebook"><span class="social fbook"> </span></a></li>
+		                	<li><a href="#" target="_blank" title="twitter"><span class="social twitter"> </span></a></li>
+		                    <li><a href="#" target="_blank" title="tumblr"><span class="social tumblr"> </span></a></li><br />
+		                    <li><a href="#" target="_blank" title="delicious"><span class="social delicious"> </span></a></li>
+		                	<li><a href="#" target="_blank" title="delicious"><span class="social delicious"> </span></a></li>
+		                	<li><a href="#" target="_blank" title="dribbble"><span class="social dribbble"> </span></a></li>
+		                    <li><a href="#" target="_blank" title="evernote"><span class="social evernote"> </span></a></li>
+		                    <li><a href="#" target="_blank" title="stumbleupon"><span class="social stumbleupon"> </span></a></li>
+		                </div>
+				</div>
+			</div>
+		</div>
+</div>
+		<!-- End-wrap -->
+
+{% endblock body %}

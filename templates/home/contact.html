@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Contact Us
+{% endblock title %}
+
+{% block css %}
+	<link href="{% static 'home/index/css/style.css' %}" rel='stylesheet' type='text/css' media="all">
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{% static 'home/contact/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'home/contact/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'home/contact/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'home/contact/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'home/contact/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'home/contact/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'home/contact/vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'home/contact/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'home/contact/vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'home/contact/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'home/contact/css/main.css' %}">
+    <style>
+	.btn-secondary {
+		color: #2e3233;
+		background-color: #fff;
+		border-color: #fff;
+	}
+     #main{
+        background-color:#390909;
+    }
+
+	.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+		line-height: 6.1;
+	}
+</style>
+{% endblock css %}
+
+{% block body %}
+
+<div class="container-contact100">
+	<div class="contact100-map"></div>
+
+		<button class="contact100-btn-show">
+			<i class="fa fa-envelope-o" aria-hidden="true"></i>
+		</button>
+
+		<div class="wrap-contact100">
+			<button class="contact100-btn-hide">
+				<i class="fa fa-close" aria-hidden="true"></i>
+			</button>
+
+			<form class="contact100-form validate-form" action='contact' method="post">
+                    {% csrf_token %}
+				<span class="contact100-form-title">
+					Contact Us
+				</span>
+
+				<div class="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Name is required">
+					<span class="label-input100">Your Name</span>
+					<input class="input100" type="text" name="name" placeholder="Enter your name">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 rs1-wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+					<span class="label-input100">Email</span>
+					<input class="input100" type="text" name="email" placeholder="Enter your email addess">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 rs1-wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+					<span class="label-input100">Phone No.</span>
+					<input class="input100" type="tel" name="phone" placeholder="Enter your Phone No.">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate = "Message is required">
+					<span class="label-input100">Message</span>
+					<textarea class="input100" name="message" placeholder="Your message here..."></textarea>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="container-contact100-form-btn">
+					<button class="contact100-form-btn">
+						<span>
+							Submit
+							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</form>
+
+			<span class="contact100-more">
+				For any question contact our 24/7 call center: <span class="contact100-more-highlight">+91 12345 67890</span>
+			</span>
+		</div>
+    </div>
+</div>
+
+
+
+	<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+	<script src="{% static 'home/contact/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'home/contact/vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'home/contact/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'home/contact/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'home/contact/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'home/contact/vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'home/contact/vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'home/contact/vendor/countdowntime/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+	{% comment %} <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script> {% endcomment %}
+	{% comment %} <script src="{% static 'home/contact/js/map-custom.js' %}"></script> {% endcomment %}
+<!--===============================================================================================-->
+	 <script src="{% static 'home/contact/js/main.js' %}"></script>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+{% comment %} <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script> {% endcomment %}
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+
+
+{% endblock body %}

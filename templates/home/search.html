@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% load static %}
+
+{% endblock title %}
+
+{% block css %}
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="{% static 'blogger/index/css/style.css ' %}" rel="stylesheet" type="text/css"  media="all" />
+		<title>Blogs</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link href='//fonts.googleapis.com/css?family=Carrois+Gothic+SC' rel='stylesheet' type='text/css'>
+{% endblock css %}
+
+{% block body %}
+<div class="wrap">
+    <div class="container">
+    {% for item in allposts %}
+    <div class="bloder-content my-3">
+        <div class="bloger-grid">
+            <div class="blog-img">
+                    <img src="/media/{{item.Blog_image}}" height="250px" width="500px"/>
+                </div>
+                <div class="bloger-content my-3">
+                    <h5><a href="/blogs/blogger/{{item.Blog_slug}}">{{item.Blog_title}}</a></h5>
+                    <p>{{item.Blog_content|truncatewords:30}}</p>
+                    <ul>
+                        <li><a href="#">{{item.Author_name}}</a></li>
+                        <li><a href="#">: {{item.Blog_time}}</a></li>
+                        <li><a href="#"><span>Readmore</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+<div class="clear"> </div>
+    <div class="wrap">
+        <!-- DC Pagination:A3 Start -->
+        <ul class="dc_pagination dc_paginationA dc_paginationA03">
+        <li><a href="#" class="first">First</a></li>
+        <li><a href="#" class="previous">Previous</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#" class="current">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#" class="next">Next</a></li>
+        <li><a href="#" class="last">Last</a></li>
+        </ul>
+            <!-- DC Pagination:A3 End -->
+            <div class="clear"> </div>
+            <!-- DC Pagination:C9 End -->
+    </div>
+    <div class="clear"> </div>
+        <div class="footer">
+                <div class="wrap">
+                <h3>Follow us on...</h3>
+            <div class="footerlinks">
+                <div class="share">
+                    <li><a href="#" target="_blank" title="Facebook"><span class="social fbook"> </span></a></li>
+                    <li><a href="#" target="_blank" title="twitter"><span class="social twitter"> </span></a></li>
+                    <li><a href="#" target="_blank" title="tumblr"><span class="social tumblr"> </span></a></li><br />
+                    <li><a href="#" target="_blank" title="delicious"><span class="social delicious"> </span></a></li>
+                    <li><a href="#" target="_blank" title="delicious"><span class="social delicious"> </span></a></li>
+                    <li><a href="#" target="_blank" title="dribbble"><span class="social dribbble"> </span></a></li>
+                    <li><a href="#" target="_blank" title="evernote"><span class="social evernote"> </span></a></li>
+                    <li><a href="#" target="_blank" title="stumbleupon"><span class="social stumbleupon"> </span></a></li>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- End-wrap -->
+{% endblock body %}
