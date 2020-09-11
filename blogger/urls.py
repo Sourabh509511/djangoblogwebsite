@@ -8,7 +8,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.home,name="home"),
+    path('', views.home.as_view(),name="home"),
     path('blogger/<str:slug>', views.blogger.as_view(),name="blogger"),
     path('comment', views.postcomment.as_view(),name="comment"),
 ]
