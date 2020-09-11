@@ -20,7 +20,7 @@
     <div class="bloder-content my-3">
         <div class="bloger-grid">
             <div class="blog-img">
-                    <img src="/media/{{item.Blog_image}}" height="250px" width="500px"/>
+                    <img src="{{item.Blog_image}}" height="250px" width="500px"/>
                 </div>
                 <div class="bloger-content my-3">
                     <h5><a href="/blogs/blogger/{{item.Blog_slug}}">{{item.Blog_title}}</a></h5>
@@ -28,7 +28,7 @@
                     <ul>
                         <li><a href="#">{{item.Author_name}}</a></li>
                         <li><a href="#">: {{item.Blog_time}}</a></li>
-                        <li><a href="#"><span>Readmore</span></a></li>
+                        <li><a href="/blogs/blogger/{{item.Blog_slug}}"><span>Readmore</span></a></li>
                     </ul>
                 </div>
             </div>

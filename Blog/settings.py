@@ -42,7 +42,14 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'blogger.apps.BloggerConfig',
     'django.contrib.humanize',
+    'django_elasticsearch_dsl',
 ]
+
+ELASTICSEARCH_DSL={
+    'default': {
+        'hosts': 'localhost:9200'
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

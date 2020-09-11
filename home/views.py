@@ -3,18 +3,24 @@ from .models import Contact
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-from blogger.models import Blog
+# from blogger.models import Blog
 from django.db.models import Q
+from blogger.documents import blogDocument
+from django.views import View
+
 
 
 
 # Create your views here.
-def welcome(request):
-    return render(request,'home/index.html')
+class welcome(View):
+    def get(self,request):
+        return render(request,'home/index.html')
 
 
-def contact(request):
-    if request.method=="POST":
+class contact(View):
+    def get(self,request):
+        return render(request,'home/contact.html')
+    def post(self,request):
         name=request.POST.get('name')
         email=request.POST.get('email')
         phone=request.POST.get('phone')
@@ -29,37 +35,44 @@ def contact(request):
             contact=Contact.objects.create(Name=name,Email=email,Phone=phone,Content=msg)
             contact.save()
             messages.success(request,"Form submitted successfully...")
-    return render(request,'home/contact.html')
+        return render(request,'home/contact.html')
 
-def about(request):
-    return render(request,'home/about.html')
+class about(View):
+    def get(self,request):
+        return render(request,'home/about.html')
 
 
-def search(request):
-    name=request.GET.get('search')
-    if (len(name)) < 50:
-            posts=Blog.objects.none()
-            posts=Blog.objects.filter(Q(Blog_title__icontains=name)|Q(Blog_content__icontains=name)|Q(Author_name__icontains=name)|Q(Blog_category__icontains=name))
-            # posts_content=Blog.objects.filter(Blog_content__icontains=name)
-            # allpost=posts_title.Union(posts_content)
-            # posts_a_name=Blog.objects.filter(Author_name__icontains=name)
-            # allpost=allpost.Union(posts_a_name)
-            # posts_cat=Blog.objects.filter(Blog_category__icontains=name)
-            # allpost=allpost.Union(posts_cat)
-            if posts:
-                param={'allposts':posts}
-                return render(request,'home/search.html',param)
-            else:
-                messages.error(request,"No results found!!!")
-            messages.error(request,"No articles have given given KEYWORD in their heading.")
+class search(View):
+    def get(self,request):
+        name=request.GET.get('search')
+        if (len(name)) < 50:
+                posts=blogDocument.search().query({"multi_match": {"query": name, "fields": ["Blog_content", "Blog_title","Blog_slug","Blog_category","Author_name"]}})
+                print(posts)
+                # posts=Blog.objects.none()
+                # posts=Blog.objects.filter(Q(Blog_title__icontains=name)|Q(Blog_content__icontains=name)|Q(Author_name__icontains=name)|Q(Blog_category__icontains=name))
+                # posts_content=Blog.objects.filter(Blog_content__icontains=name)
+                # allpost=posts_title.Union(posts_content)
+                # posts_a_name=Blog.objects.filter(Author_name__icontains=name)
+                # allpost=allpost.Union(posts_a_name)
+                # posts_cat=Blog.objects.filter(Blog_category__icontains=name)
+                # allpost=allpost.Union(posts_cat)
+                if posts:
+                    param={'allposts':posts}
+                    return render(request,'home/search.html',param)
+                else:
+                    messages.error(request,"No results found!!!")
+                messages.error(request,"No articles have given given KEYWORD in their heading.")
+                return render(request,'home/search.html')
+        else:
+            messages.error(request,"Too long query... Try small keyword")
             return render(request,'home/search.html')
-    else:
-        messages.error(request,"Too long query... Try small keyword")
-        return render(request,'home/search.html')
 
 
-def authentication(request):
-    if request.method=="POST":
+class authentication(View):
+    def get(self,request):
+        return render(request,'home/index.html')
+
+    def post(self,request):
         username=request.POST.get('Username')
         name=request.POST.get('name')
         email=request.POST.get('email')
@@ -83,10 +96,9 @@ def authentication(request):
         else:
             messages.error(request,"Password must be same in both fields")
             return redirect('index')
-    return render(request,'home/index.html')
 
-def loginView(request):
-    if request.method=="POST":
+class loginView(View):
+    def post(self,request):
         loginusername=request.POST.get('username')
         loginpassword=request.POST.get('password')
         print(loginusername,loginpassword)
@@ -100,10 +112,11 @@ def loginView(request):
             messages.error(request,"Invalid Credentials!!!")
             return redirect("index")
 
-def logoutView(request):
-    logout(request)
-    messages.success(request,"Successfully logged out")
-    return redirect("/")
+class logoutView(View):
+    def get(self,request):
+        logout(request)
+        messages.success(request,"Successfully logged out")
+        return redirect("/")
 
 # from django.views import View
 
