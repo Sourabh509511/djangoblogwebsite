@@ -10,6 +10,6 @@ permissions:
     group: ec2-user
 hooks:
   BeforeInstall:
-    - location: scripts/aws_clean_instance.sh
+    - location: aws_clean_instance.sh
       timeout: 6000
       runas: root
